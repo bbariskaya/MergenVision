@@ -1,0 +1,70 @@
+# Python / virtual environments
+.venv
+venv
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.mypy_cache
+.pytest_cache
+.ruff_cache
+.coverage
+htmlcov
+.tox
+.nox
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Logs / temp
+*.log
+*.tmp
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Documentation
+*.md
+docs/
+
+# Frontend node modules and build artifacts
+frontend/node_modules
+frontend/dist
+frontend/build
+frontend/.turbo
+frontend/coverage
+
+# Local data / models / datasets
+# NOTE: If you intentionally embed models or engines in the image,
+# remove the matching lines below. Prefer runtime volume mounts.
+artifacts/
+models/
+data/
+datasets/
+*.onnx
+*.plan
+*.engine
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+
+# Jupyter / notebooks
+notebooks/
+*.ipynb
+
+# IDE
+.idea
+.vscode
+*.iml

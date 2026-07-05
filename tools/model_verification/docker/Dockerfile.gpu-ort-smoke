@@ -1,0 +1,45 @@
+# MergenVision Phase 0B-GPU verification-only image.
+# -----------------------------------------------------------------------------
+# This Dockerfile builds a one-off, non-production verification container.
+# It is used ONLY to prove that ONNX Runtime CUDAExecutionProvider can load
+# and run the primary SCRFD + ArcFace batch models inside a Docker GPU runtime.
+# It does NOT contain the MergenVision application, API, database, or front-end.
+#
+# Base image selected from official NVIDIA CUDA runtime images:
+#   - nvidia/cuda:13.0.0-cudnn-runtime-ubuntu24.04
+# Reason:
+#   - PyPI onnxruntime-gpu 1.27.0 declares dependencies
+#     nvidia-cuda-runtime-cu13 ~=13.0 and nvidia-cudnn-cu13 ~=9.0.
+#   - Host verification previously failed with:
+#       "Require cuDNN 9.* and CUDA 13.*" + missing libcudnn.so.9
+#   - This official runtime image provides CUDA 13.0 and cuDNN 9 in the
+#     container's system libraries, satisfying ORT 1.27.0 GPU runtime.
+# Reference:
+#   - https://hub.docker.com/r/nvidia/cuda/tags
+#   - https://onnxruntime.ai/docs/execution-providers/CUDA-ExecutionProvider.html
+#   - https://pypi.org/project/onnxruntime-gpu/1.27.0/
+# -----------------------------------------------------------------------------
+FROM nvidia/cuda:13.0.0-cudnn-runtime-ubuntu24.04
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+ENV PIP_NO_CACHE_DIR=1
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+       python3 \
+       python3-pip \
+       python3-venv \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN python3 -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+# Required Python packages ONLY for verification. No app dependencies.
+RUN pip install --upgrade pip \
+    && pip install numpy onnx onnxruntime-gpu
+
+WORKDIR /workspace
+
+# Default message. Override CMD in docker run to execute a specific script.
+CMD ["python", "-c", "print('MergenVision Phase 0B-GPU verification image. Override CMD to run a verification script.')"]

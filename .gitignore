@@ -1,0 +1,196 @@
+# =========================================================
+# MergenVision .gitignore
+# Keeps only source/configuration/test files in git.
+# Generated, binary, local-environment and cache artifacts
+# must be reproduced on the target machine.
+# =========================================================
+
+# ------------------------------------------------------------------
+# Model weights / serialized networks
+# ------------------------------------------------------------------
+# Keep manifests (e.g. MODEL_MANIFEST.json) so the project knows
+# which models belong where.
+artifacts/model_benchmarks/models/**
+
+# Also ignore any model checkpoints/weights that may appear elsewhere
+*.onnx
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.bin
+*.pkl
+*.pickle
+*.h5
+*.pb
+*.tflite
+*.mlmodel
+*.engine
+*.trt
+*.caffemodel
+*.weights
+
+# TensorRT engines built from ONNX (large binaries, reproducible from scripts)
+artifacts/trt_engines/*.plan
+
+# ------------------------------------------------------------------
+# Test / demo datasets
+# ------------------------------------------------------------------
+# Keep CSV metadata files at the root of each dataset; ignore raw
+# image/video data.
+test_datasets/**/lfw-deepfunneled/**
+test_datasets/**/*.jpg
+test_datasets/**/*.jpeg
+test_datasets/**/*.png
+test_datasets/**/*.gif
+test_datasets/**/*.bmp
+test_datasets/**/*.webp
+test_datasets/**/*.mp4
+test_datasets/**/*.avi
+test_datasets/**/*.mov
+test_datasets/**/*.mkv
+test_datasets/**/*.webm
+test_datasets/**/*.zip
+
+# ------------------------------------------------------------------
+# Generated outputs
+# ------------------------------------------------------------------
+artifacts/results/**
+artifacts/exports/**
+artifacts/cache/**
+artifacts/**/*.png
+artifacts/**/*.jpg
+artifacts/**/*.jpeg
+artifacts/**/*.gif
+artifacts/**/*.mp4
+artifacts/**/*.avi
+artifacts/**/*.json
+!artifacts/model_benchmarks/MODEL_MANIFEST.json
+
+# Screenshots / local data dumps produced during demo/test runs
+/*.png
+/*.jpg
+/*.jpeg
+/*.gif
+/*.db
+/backend/dataset-metadata.json
+
+# ------------------------------------------------------------------
+# Demo / temp / local scratch / IDE-local files
+# ------------------------------------------------------------------
+demo/
+demos/
+*.demo
+scratch/
+tmp/
+temp/
+.cache/
+
+# Claude / OpenCode / Playwright MCP / superpowers local working data
+.claude/
+.opencode/
+.playwright-mcp/
+.superpowers/
+
+# ------------------------------------------------------------------
+# Environment / secrets
+# ------------------------------------------------------------------
+# Ignore all runtime env files except explicit example/test templates.
+.env
+.env.*
+!.env.example
+!.env.*.example
+!.env.test
+
+# Local env variants (covered by the block above, kept explicit)
+.env.local
+.env.*.local
+
+# Keys / certs
+*.key
+*.pem
+
+# ------------------------------------------------------------------
+# Python
+# ------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Type check / lint / test caches
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.pyre/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv/
+
+# ------------------------------------------------------------------
+# Node / frontend
+# ------------------------------------------------------------------
+node_modules/
+.next/
+.nuxt/
+dist/
+dist-ssr/
+build/
+coverage/
+.turbo/
+*.local
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+*.tsbuildinfo
+
+# ------------------------------------------------------------------
+# IDEs / OS
+# ------------------------------------------------------------------
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ------------------------------------------------------------------
+# Large archives
+# ------------------------------------------------------------------
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.gz
+*.bz2
+*.7z
+*.rar
